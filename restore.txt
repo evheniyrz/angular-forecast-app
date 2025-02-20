@@ -1,0 +1,43 @@
+this.http
+      .get(
+        'https://api.openweathermap.org/data/2.5/forecast?lat=46.9660801&lon=32.003246&APPID=f2f367b6802fb926387ec43c28c57846'
+      )
+      .subscribe((resp) => console.log({ resp }));
+    // this.geocoder
+    //   .geocode({
+    //     address: 'Mykolaiv, Ukraine',
+    //   })
+    //   .subscribe(({ results }) => {
+    //     console.log({
+    //       lt: results[0].geometry.location.lat(),
+    //       lg: results[0].geometry.location.lng(),
+    //     });
+    //   });
+    // lg: 32.003246;
+    // lt: 46.9660801;
+    // iconsURL: https://openweathermap.org/img/wn/replace_this_code{04d}@2x.png
+    // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
+
+    // api.openweathermap.org/data/2.5/forecast?q={city name},{country code}&appid={API key}
+
+    // api.openweathermap.org/data/2.5/forecast?q={city name},{state code},{country code}&appid={API key}
+{
+  "name": "components",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/cdk": "^19.1.4",
+    "@angular/material": "^19.1.4",
+    "@angular/google-maps": "^19.1.4"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
+ "ng-add": {
+      "description": "Add my library to the project.",
+      "factory": "./ng-add/index#ngAdd",
+      "schema": "./ng-add/schema.json"
+    },

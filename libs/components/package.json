@@ -5,8 +5,7 @@
     "@angular/common": "^19.1.0",
     "@angular/core": "^19.1.0",
     "@angular/cdk": "^19.1.4",
-    "@angular/material": "^19.1.4",
-    "@angular/google-maps": "^19.1.4"
+    "@angular/material": "^19.1.4"
   },
   "dependencies": {
     "tslib": "^2.3.0"
