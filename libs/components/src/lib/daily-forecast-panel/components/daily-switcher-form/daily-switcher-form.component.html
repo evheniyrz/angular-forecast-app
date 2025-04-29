@@ -1,0 +1,18 @@
+<h2 class="next-day-forecast-title">the next day forecast</h2>
+<form [formGroup]="dailySwitcherForm" id="daily-switcher-form" #dailyForm style="--radio-btn-index:0;">
+  <label for="four-days">
+    <input type="radio" formControlName="daySwitcher" value="4" id="four-days" (change)="updateOnChange(0, dailyForm)">
+    4 days
+  </label>
+
+  <label for="two-week">
+    <input type="radio" formControlName="daySwitcher" value="14" id="two-week" (change)="updateOnChange(1, dailyForm)">
+    14 days
+  </label>
+
+  <label for="month">
+    <input type="radio" formControlName="daySwitcher" value="30" id="month" (change)="updateOnChange(2, dailyForm)">
+    30 days
+  </label>
+  <span class="radio-btn-overlay"></span>
+</form>

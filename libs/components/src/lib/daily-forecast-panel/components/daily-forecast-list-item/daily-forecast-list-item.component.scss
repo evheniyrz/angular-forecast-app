@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  * {
+    color: #ffffff;
+  }
+
+  .weather-icon {
+    align-self: stretch;
+    flex: 1 1;
+    max-width: 50px;
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  .current-forecast-container {
+    flex: 1 1 auto;
+
+    .current-forecast {
+      text-transform: capitalize;
+      font-size: 0.85rem;
+      color: var(--hex-proj-soft-denim);
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+  }
+
+  mat-divider {
+    align-self: stretch;
+  }
+
+  .current-temp {
+    padding: 0 0 0 15px;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+}

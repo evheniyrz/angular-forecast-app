@@ -1,0 +1,14 @@
+<div class="now-time">
+  <div class="today">{{forecastNow()?.date | date:'EEEE, MMMM d'}}</div>
+  <div class="time">{{forecastNow()?.date | date:'h:mm a'}}</div>
+</div>
+<div class="now-temperature">
+  <span class="value">{{forecastNow()?.main?.temp | mathRound}}</span><span class="unit">&#8451;</span>
+</div>
+<div class="now-air">
+  <span class="material-icons">
+    air
+  </span>
+  <span class="wind-direction">&nbsp;{{forecastNow()?.wind?.deg | degToWindDirection}}&nbsp;</span>
+  <span class="wind-speed">{{forecastNow()?.wind?.speed | mathRound}} km/h</span>
+</div>

@@ -1,0 +1,39 @@
+:host {
+  height: 95dvh;
+  background-color: rgba($color: var(--rgb-proj-twilight-blue), $alpha: 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 25px;
+  overflow: hidden;
+  color: #ffffff;
+  @media screen and (min-width: 640px) {
+    grid-template-columns: 1fr 30%;
+    grid-template-rows: 1fr 30%;
+    aspect-ratio: 16/9;
+  }
+
+  lib-daily-forecast-panel {
+    @media screen and (min-width: 640px) {
+      grid-column: 2/3;
+      grid-row: span 2;
+    }
+  }
+  lib-today-forecast-panel {
+    @media screen and (min-width: 640px) {
+      margin: 30px 0 0 30px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+  }
+  lib-today-forecast-statistics-panel {
+    @media screen and (min-width: 640px) {
+      margin: 0 0 30px 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      // grid-row: 2/3;
+    }
+  }
+}

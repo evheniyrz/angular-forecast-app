@@ -5,11 +5,16 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@lib-components": ["libs/components/src/public-api.ts"],
-      "@lib-services": ["libs/services/src/public-api.ts"]
+      "@lib-components": ["libs/components/src/components-index.ts"],
+      "@lib-services": ["libs/services/src/services-index.ts"],
+      "@lib-pipes": ["libs/pipes/src/pipes-index.ts"],
+      "@lib-weather-app-store": [
+        "libs/weather-app-store/src/weather-store-index.ts"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "resolveJsonModule": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

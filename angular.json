@@ -24,6 +24,7 @@
             "tsConfig": "projects/weather/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "projects/weather/src/assets",
               {
                 "glob": "**/*",
                 "input": "projects/weather/public"
@@ -151,6 +152,69 @@
           "options": {
             "tsConfig": "libs/services/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "pipes": {
+      "projectType": "library",
+      "root": "libs/pipes",
+      "sourceRoot": "libs/pipes/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/pipes/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/pipes/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/pipes/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/pipes/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "weather-app-store": {
+      "projectType": "library",
+      "root": "libs/weather-app-store",
+      "sourceRoot": "libs/weather-app-store/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/weather-app-store/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/weather-app-store/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/weather-app-store/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/weather-app-store/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }

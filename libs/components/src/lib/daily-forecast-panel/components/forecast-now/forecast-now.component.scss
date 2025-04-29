@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 40px;
+
+  .now-time,
+  .now-temperature,
+  .now-air {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .now-time {
+    justify-content: space-between;
+    padding-bottom: 50px;
+  }
+
+  .now-temperature,
+  .now-air {
+    justify-content: center;
+  }
+
+  .now-temperature {
+    font-size: 110px;
+    line-height: 1;
+    padding-bottom: 20px;
+
+    .unit {
+      font-size: 40px;
+      line-height: 40px;
+      align-self: start;
+    }
+  }
+
+  .now-air {
+    font-size: 1.1rem;
+  }
+}

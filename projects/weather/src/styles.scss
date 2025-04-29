@@ -4,12 +4,24 @@ html,
 body {
   height: 100%;
 }
+html,
+body,
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  --proj-dark-color: #4c5069;
-  --proj-twilight-blue: #6b738d;
-  --proj-soft-denim: #949fb3;
-  --proj-ghostly-blue: #b0b6ca;
-  --proj-quite-blue: #858cae;
+  --rgb-proj-dark-color: 76, 80, 105;
+  --rgb-proj-twilight-blue: 107, 115, 141;
+  --rgb-proj-soft-denim: 148, 159, 179;
+  --rgb-proj-ghostly-blue: 176, 182, 202;
+  --rgb-proj-quite-blue: 133, 140, 174;
+  --hex-proj-dark-color: #4c5069;
+  --hex-proj-twilight-blue: #6b738d;
+  --hex-proj-soft-denim: #949fb3;
+  --hex-proj-ghostly-blue: #b0b6ca;
+  --hex-proj-quite-blue: #858cae;
+  --mat-divider-width: 2px;
+  --mat-divider-color: var(--hex-proj-soft-denim);
 }

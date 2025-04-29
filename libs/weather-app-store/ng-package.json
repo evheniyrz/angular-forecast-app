@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/weather-app-store",
+  "lib": {
+    "entryFile": "src/weather-store-index.ts"
+  }
+}

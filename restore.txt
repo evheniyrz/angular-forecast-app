@@ -41,3 +41,4 @@ this.http
       "factory": "./ng-add/index#ngAdd",
       "schema": "./ng-add/schema.json"
     },
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=C:\unsafe-browser
