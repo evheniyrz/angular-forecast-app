@@ -3,7 +3,7 @@ import { DailySwitcherFormComponent } from 'libs/components/src/lib/daily-foreca
 import { ForecastNowComponent } from './components/forecast-now/forecast-now.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { ForecastListComponent } from './components/forecast-list/forecast-list.component';
-import { ForecastNowDTO } from '@lib-services';
+import { IDailyForecastDTO } from '@lib-weather-app-store';
 
 @Component({
   selector: 'lib-daily-forecast-panel',
@@ -17,5 +17,5 @@ import { ForecastNowDTO } from '@lib-services';
   styleUrl: './daily-forecast-panel.component.scss',
 })
 export class DailyForecastPanelComponent {
-  currentTimeForecast = input<ForecastNowDTO>();
+  currentForecastCollection = input<IDailyForecastDTO>();
 }

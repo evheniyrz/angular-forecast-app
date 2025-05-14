@@ -9,6 +9,7 @@
   gap: 25px;
   overflow: hidden;
   color: #ffffff;
+  position: relative;
   @media screen and (min-width: 640px) {
     grid-template-columns: 1fr 30%;
     grid-template-rows: 1fr 30%;

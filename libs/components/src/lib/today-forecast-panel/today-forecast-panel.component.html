@@ -4,19 +4,19 @@
     <span class="material-icons geo-icon">
       place
     </span>
-    <span class="geo-position-place">{{todayForecast()?.sys?.name}}, {{todayForecast()?.sys?.country |
+    <span class="geo-position-place">{{todayForecast().sys.name}}, {{todayForecast().sys.country |
       codeToCountryName}}</span>
   </div>
   <div class="forecast-overview">
     <h2 class="forecast-overview-title">weather forecast</h2>
     <div class="forecast-overview-details">
-      <div class="forecast-overview-state">{{todayForecast()?.weather?.description}}</div>
+      <div class="forecast-overview-state">{{todayForecast().weather.description}}</div>
       <div class="forecast-overview-state-icon"
-        [ngStyle]="{'background-image':'url('+todayForecast()?.weather?.icon +')'}">
+        [ngStyle]="{'background-image':'url('+todayForecast().weather.icon +')'}">
       </div>
       <div class="forecast-overview-temperature">The low temperature will reach {{todayForecast()!.temp_min |
         mathRound}} on this
-        {{todayForecast()?.weather?.main | adjective}} day</div>
+        {{todayForecast().weather.main | adjective}} day</div>
     </div>
   </div>
 </div>

@@ -1,0 +1,43 @@
+<button mat-mini-fab mat-dialog-close class="close-dialog-button">
+  <span class="material-icons-outlined">
+    close
+  </span>
+</button>
+<form [formGroup]="geopositionForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <mat-label>Country</mat-label>
+    <input type="text" placeholder="Country name (more then 3 symbols)" aria-label="country name" matInput
+      formControlName="country" [matAutocomplete]="countryAuto">
+    <mat-autocomplete #countryAuto="matAutocomplete" [displayWith]="displayFn"
+      (optionSelected)="onCountrySelected($event)">
+      @for (countryOption of countryList(); track countryOption.cca2) {
+      <mat-option [value]="countryOption">
+        <div class="country-params-container">
+          <img width="30" [src]="countryOption.flags.svg"
+            [alt]="countryOption.flags.alt">{{countryOption.name.official}}
+        </div>
+      </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>City</mat-label>
+    <input type="text" placeholder="City name" aria-label="city name" matInput formControlName="city"
+      [matAutocomplete]="cityAuto">
+    <mat-autocomplete #cityAuto="matAutocomplete">
+      <cdk-virtual-scroll-viewport itemSize="50" [ngStyle]="{height}">
+        <!-- @for (cityName of cityList(); track cityName) { -->
+        <mat-option *cdkVirtualFor="let cityName of cityList(); trackBy: cityNameTrack"
+          [value]="cityName">{{cityName}}</mat-option>
+        <!-- } -->
+      </cdk-virtual-scroll-viewport>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-checkbox formControlName="useAsDefaultGeo">
+    Set as Default GEO Position
+  </mat-checkbox>
+  <div class="action-button-container">
+    <button mat-fab type="submit">set new geo position</button>
+    <button mat-fab type="reset">reset form</button>
+  </div>
+</form>

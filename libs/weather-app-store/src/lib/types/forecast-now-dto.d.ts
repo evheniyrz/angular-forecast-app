@@ -1,4 +1,4 @@
-export interface ForecastNowDTO {
+export interface IForecastNowDTO {
   wind: {
     speed: number;
     deg: number;

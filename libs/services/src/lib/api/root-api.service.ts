@@ -20,7 +20,7 @@ export class RootApiService {
     reqConfig: HttpRequest<any>
   ): Observable<HttpResponse<T>> {
     reqConfig = reqConfig.clone({
-      url: this.generateResourceURL(),
+      url: this.generateResourceURL(reqConfig.url),
     });
     return this.httpClient.request<T>(reqConfig).pipe(
       filter((event) => event.type === HttpEventType.Response),
@@ -39,8 +39,8 @@ export class RootApiService {
     return params;
   }
 
-  private generateResourceURL(): string {
-    const finalURL: string = `${this.apiHost}${this.endpoint}`;
+  private generateResourceURL(resourcePartialPath: string): string {
+    const finalURL: string = `${this.apiHost}${this.endpoint}${resourcePartialPath}`;
     return finalURL;
   }
 }

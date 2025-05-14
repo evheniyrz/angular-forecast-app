@@ -1,7 +1,12 @@
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { RootApiService } from 'libs/services/src/lib/api/root-api.service';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 // import {TodayWeatherResponse} from './types/today-weather-response';
 
 @Injectable()
@@ -43,7 +48,13 @@ export class ForecastApiService<T> extends RootApiService {
       reportProgress: false,
     });
     return this.apiRequest<T>(requestOption).pipe(
-      map((response: HttpResponse<T>) => response.body as T)
+      map((response: HttpResponse<T>) => response.body as T),
+      catchError((error: HttpErrorResponse) => {
+        return of({
+          code: error ?? ['cod'],
+          message: error.message,
+        } as T);
+      })
     );
   }
 }

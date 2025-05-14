@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GeoByIpService, ResolvedGeoData, STORAGEKEYS } from '@lib-services';
+
 import { LocalStorageService } from 'libs/services/src/lib/api/local-storage/local-storage.service';
 import { concatMap, defer, iif, Observable, of, tap } from 'rxjs';
 
@@ -18,19 +19,11 @@ export class ResolverService {
         return iif(
           () => null != resolvedData,
           defer(() => of(resolvedData as ResolvedGeoData)),
-          defer(() =>
-            this.geoByIpService
-              .getLocation()
-              .pipe(
-                tap((resolvedData) =>
-                  this.localStotageService.setItem(
-                    STORAGEKEYS.USER_GEO,
-                    resolvedData
-                  )
-                )
-              )
-          )
+          defer(() => this.geoByIpService.getLocation())
         );
+      }),
+      tap((value: ResolvedGeoData) => {
+        this.localStotageService.setItem(STORAGEKEYS.USER_GEO, value);
       })
     );
   }

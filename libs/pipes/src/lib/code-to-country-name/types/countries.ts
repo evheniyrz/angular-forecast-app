@@ -20,6 +20,7 @@ export type CountriesCode =
   | 'BW'
   | 'BR'
   | 'BG'
+  | 'BN'
   | 'KH'
   | 'CM'
   | 'CA'
@@ -136,6 +137,7 @@ export enum CountryEnum {
   BW = 'Botswana',
   BR = 'Brazil',
   BG = 'Bulgaria',
+  BN = 'Brunei',
   KH = 'Cambodia',
   CM = 'Cameroon',
   CA = 'Canada',

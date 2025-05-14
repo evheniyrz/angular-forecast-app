@@ -1,8 +1,6 @@
-@if ($templateDataStream | async; as templateData) {
-<lib-today-forecast-panel [todayForecast]="templateData.todayOverviewDTO"></lib-today-forecast-panel>
-<lib-daily-forecast-panel [currentTimeForecast]="templateData.nowForecastDTO"></lib-daily-forecast-panel>
-<lib-today-forecast-statistics-panel></lib-today-forecast-statistics-panel>
-}
-@else {
-<lib-today-forecast-statistics-panel></lib-today-forecast-statistics-panel>
+@if($templateDataStream | async; as state){
+<lib-today-forecast-panel [todayForecast]="state.todayForecast"></lib-today-forecast-panel>
+<lib-daily-forecast-panel [currentForecastCollection]="state.dailyForecast"></lib-daily-forecast-panel>
+<lib-today-forecast-statistics-panel [statisticsData]="state.statisticsState"></lib-today-forecast-statistics-panel>
+<lib-float-control-panel></lib-float-control-panel>
 }

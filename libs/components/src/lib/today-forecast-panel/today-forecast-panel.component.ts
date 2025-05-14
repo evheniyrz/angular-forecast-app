@@ -1,18 +1,19 @@
 import { NgStyle, NumberSymbol } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
   AdjectivePipe,
   CodeToCountryNamePipe,
   MathRoundPipe,
 } from '@lib-pipes';
-import { TodayOverviewTemplateData } from '@lib-services';
+import { TodayForecastTemplateData } from '@lib-services';
 
 @Component({
   selector: 'lib-today-forecast-panel',
   imports: [NgStyle, MathRoundPipe, CodeToCountryNamePipe, AdjectivePipe],
   templateUrl: './today-forecast-panel.component.html',
   styleUrl: './today-forecast-panel.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodayForecastPanelComponent {
-  todayForecast = input<TodayOverviewTemplateData>();
+  todayForecast = input.required<TodayForecastTemplateData>();
 }

@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  inject,
-  Input,
-  ViewChild,
+  input,
+  InputSignal,
+  linkedSignal,
+  WritableSignal,
 } from '@angular/core';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import * as echarts from 'echarts/core';
@@ -18,12 +18,8 @@ import {
   TransformComponent,
 } from 'echarts/components';
 
-import { EChartsOption, XAXisOption } from 'echarts/types/dist/shared';
-import { HttpClient } from '@angular/common/http';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MonoTypeOperatorFunction, tap } from 'rxjs';
+import { EChartsOption } from 'echarts/types/dist/shared';
 import { DatePipe, TitleCasePipe } from '@angular/common';
-import { WeatherollectionResponse } from '@lib-services';
 
 echarts.use([
   LineChart,
@@ -44,17 +40,43 @@ echarts.use([
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WeatherChartComponent {
-  @ViewChild(NgxEchartsDirective, { static: true })
-  chartDirective!: NgxEchartsDirective;
-  @ViewChild('chartContainer', { static: true })
-  chartContainer!: ElementRef<HTMLElement>;
-  @Input() weatherResponse!: WeatherollectionResponse;
-  private http: HttpClient = inject(HttpClient);
-  private destroyFn: MonoTypeOperatorFunction<any> = takeUntilDestroyed();
-  private date: DatePipe = inject(DatePipe); //shortTime
-  private titleCasePipe: TitleCasePipe = inject(TitleCasePipe);
+  readonly chartData: InputSignal<Array<Record<string, string | number>>> =
+    input.required<Array<Record<string, string | number>>>();
 
-  chartOptions: EChartsOption = {
+  readonly chartOptionsSignal: WritableSignal<EChartsOption> = linkedSignal<
+    Array<Record<string, string | number>>,
+    EChartsOption
+  >({
+    source: this.chartData,
+    computation: (newSource, _) => ({
+      ...this.chartOptions,
+      xAxis: {
+        ...this.chartOptions.xAxis,
+        data: newSource.map(
+          (item) =>
+            `{temperature|${item['temperature']}°C}\n{w|${item['time']}}\n{W|${item['weatherState']}}`
+        ),
+      },
+      series: {
+        type: 'line',
+        color: 'white',
+        smooth: true,
+        symbolSize: 0,
+        lineStyle: {
+          color: 'orange',
+          width: 4,
+          type: 'solid',
+        },
+        encode: {
+          x: 'time',
+          y: 'temperature',
+        },
+        data: newSource.map((item) => item['temperature']),
+      },
+    }),
+  });
+
+  private chartOptions: EChartsOption = {
     grid: {
       left: 45,
       right: 45,
@@ -103,18 +125,6 @@ export class WeatherChartComponent {
       type: 'value',
       show: false,
     },
-    // dataZoom: [
-    //   {
-    //     type: 'slider',
-    //     xAxisIndex: 0,
-    //     filterMode: 'none',
-    //   },
-    //   {
-    //     type: 'inside',
-    //     xAxisIndex: 0,
-    //     filterMode: 'none',
-    //   },
-    // ],
     series: {
       type: 'line',
       color: 'white',
@@ -129,63 +139,10 @@ export class WeatherChartComponent {
         x: 'time',
         y: 'temperature',
       },
+      data: [],
     },
   };
   chartStyle = {
     width: '100%', // Чарт растягивается на 100% ширины родителя
   };
-
-  ngOnInit() {
-    console.log('==chart-directive', this.chartContainer);
-    const tempDiagramm = echarts.init(this.chartContainer.nativeElement);
-    // tempDiagramm.showLoading();
-    this.http
-      .get('/assets/chart-data.json')
-      .pipe(
-        this.destroyFn,
-        tap((data) => {
-          const keyValueChartData = this.transformDataToChartData(data);
-
-          // tempDiagramm.hideLoading();
-          tempDiagramm.setOption({
-            ...this.chartOptions,
-            xAxis: {
-              ...this.chartOptions.xAxis,
-              data: keyValueChartData.map(
-                (item) =>
-                  `{temperature|${item['temperature']}°C}\n{w|${item['time']}}\n{W|${item['weatherState']}}`
-              ),
-            },
-            series: {
-              ...this.chartOptions.series,
-              data: keyValueChartData.map((item) => item['temperature']),
-            },
-          });
-
-          const options: EChartsOption =
-            tempDiagramm.getOption() as EChartsOption;
-          console.log('==options==', options);
-        })
-      )
-      .subscribe({
-        complete: () => console.log('complete'),
-      });
-  }
-
-  private transformDataToChartData(
-    data: WeatherollectionResponse
-  ): Array<Record<string, string | number>> {
-    const chartData: Array<Record<string, string | number>> = data.list.reduce<
-      Array<Record<string, string | number>>
-    >((collection, next) => {
-      collection.push({
-        time: this.date.transform(next.dt_txt, 'shortTime') as string,
-        temperature: Math.round(next.main.temp),
-        weatherState: this.titleCasePipe.transform(next.weather[0].description),
-      });
-      return collection;
-    }, []);
-
-    return chartData;
-  }
 }

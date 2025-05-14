@@ -1,4 +1,4 @@
-export interface WeatherollectionResponse {
+export interface WeatherCollectionResponse {
   cod: string;
   message: number;
   cnt: number;
@@ -6,7 +6,7 @@ export interface WeatherollectionResponse {
   city: CityConfiguration;
 }
 
-interface WeatherStateCollection {
+export interface WeatherStateCollection {
   dt: number;
   main: AtmosphericData;
   weather: WeatherState[];

@@ -3,4 +3,5 @@ export interface ResolvedGeoData {
   city_geoname_id: number;
   region: string;
   country: string;
+  country_code: string;
 }

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@use "@angular/material" as mat;
 html,
 body {
   height: 100%;
@@ -24,4 +24,53 @@ body {
   --hex-proj-quite-blue: #858cae;
   --mat-divider-width: 2px;
   --mat-divider-color: var(--hex-proj-soft-denim);
+}
+
+// Customize the entire app. icon- Change :root to your selector if you want to scope the styles.
+// lib-float-control-panel {
+//   @include mat.icon-button-overrides(
+//     (
+//       state-layer-color: orange,
+//       icon-color: rgba(0, 0, 0, 0.3),
+//     )
+//   );
+// }
+lib-geo-position-form {
+  @include mat.form-field-overrides(
+    (
+      filled-caret-color: white,
+      filled-focus-active-indicator-color: white,
+      filled-focus-label-text-color: white,
+      filled-container-color: transparent,
+      filled-label-text-color: rgba(255, 255, 255, 0.5),
+      filled-hover-label-text-color: white,
+      filled-disabled-container-color: rgba(255, 255, 255, 0.4),
+      filled-input-text-color: white,
+      filled-input-text-placeholder-color: white,
+      disabled-input-text-placeholder-color: rgba(255, 255, 255, 0.4),
+      filled-active-indicator-color: rgba(255, 255, 255, 0.4),
+      filled-hover-active-indicator-color: white,
+    )
+  );
+}
+.dialog-overlay-pane {
+  width: 100%;
+  max-width: 560px;
+  min-width: 280px;
+  background-color: transparent;
+}
+.dialog-overlay-pane mat-dialog-container {
+  --mdc-dialog-container-shape: 10px;
+  padding: 10px;
+  @include mat.dialog-overrides(
+    (
+      container-color: transparent,
+      subhead-color: red,
+    )
+  );
+}
+
+.geo-dialog-button {
+  --mat-sys-inverse-surface: white;
+  --mat-sys-inverse-on-surface: var(--hex-proj-dark-color);
 }

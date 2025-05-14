@@ -1,5 +1,5 @@
-<lib-forecast-now [forecastNow]="currentTimeForecast()"></lib-forecast-now>
+<lib-forecast-now [forecastNow]="currentForecastCollection()?.nowForecast"></lib-forecast-now>
 <mat-divider></mat-divider>
 
 <lib-daily-switcher-form></lib-daily-switcher-form>
-<lib-forecast-list></lib-forecast-list>
+<lib-forecast-list [fiveDaysForecast]="currentForecastCollection()?.fiveDaysForecast"></lib-forecast-list>

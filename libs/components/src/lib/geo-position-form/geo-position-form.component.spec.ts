@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeatherAppStoreComponent } from './weather-app-store.component';
+import { GeoPositionFormComponent } from './geo-position-form.component';
 
-describe('WeatherAppStoreComponent', () => {
-  let component: WeatherAppStoreComponent;
-  let fixture: ComponentFixture<WeatherAppStoreComponent>;
+describe('GeoPositionFormComponent', () => {
+  let component: GeoPositionFormComponent;
+  let fixture: ComponentFixture<GeoPositionFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeatherAppStoreComponent]
+      imports: [GeoPositionFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WeatherAppStoreComponent);
+    fixture = TestBed.createComponent(GeoPositionFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

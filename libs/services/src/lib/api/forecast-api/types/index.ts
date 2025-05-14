@@ -1,5 +1,8 @@
 export type { TodayWeatherResponse } from './today-weather-response';
-export type { TodayOverviewTemplateData } from './today-weather-template-data';
+export type { TodayForecastTemplateData } from './today-weather-template-data';
 export type { CombineTemplateData } from './combined-template-data';
-export type { ForecastNowDTO } from './forecast-now-dto';
-export type { WeatherollectionResponse } from './weather-collection.interface';
+export type { IForecastNowDTO as ForecastNowDTO } from '../../../../../../weather-app-store/src/lib/types/forecast-now-dto';
+export type {
+  WeatherCollectionResponse,
+  WeatherStateCollection,
+} from './weather-collection.interface';

@@ -15,8 +15,13 @@ import {
 import {
   GEO_LOCATION_API_TOKEN,
   GEO_LOCATION_HOST,
+  GeoPositionFormDataService,
+  httpErrorInterceptor,
   OPEN_WEATHER_API_HOST,
   OPEN_WEATHER_API_TOKEN,
+  REST_CITIES_API_HOST,
+  REST_COUNTRIES_API_HOST,
+  SubmitFomService,
   withcredentialsInterceptor,
 } from '@lib-services';
 
@@ -25,8 +30,14 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([withcredentialsInterceptor])),
+    provideHttpClient(
+      withInterceptors([httpErrorInterceptor, withcredentialsInterceptor])
+    ),
     provideEnvironmentInitializer(() => {}),
+    {
+      provide: SubmitFomService,
+      useExisting: GeoPositionFormDataService,
+    },
     {
       provide: OPEN_WEATHER_API_HOST,
       useValue: 'https://api.openweathermap.org/data/2.5',
@@ -43,6 +54,29 @@ export const appConfig: ApplicationConfig = {
       provide: GEO_LOCATION_API_TOKEN,
       useValue: '990d95afbdd24cc2a35fd650671b6be9',
     },
+    {
+      provide: REST_COUNTRIES_API_HOST,
+      useValue: 'https://restcountries.com/v3.1/name',
+    },
+    {
+      provide: REST_CITIES_API_HOST,
+      useValue: 'https://countriesnow.space/api/v0.1/countries/cities',
+    },
   ],
 };
 // 'https://api.openweathermap.org/data/2.5'
+
+// countries by name: https://restcountries.com/v3.1/name/{name}
+// by fields: https://restcountries.com/v3.1/name/aus?fields=name,flags
+// POST Get single country and its states
+// POST https://countriesnow.space/api/v0.1/countries/states {body: { country: countryName}}
+// POST Get cities in a state
+// https://countriesnow.space/api/v0.1/countries/state/cities {
+//     "country": "Nigeria",
+//     "state": "Lagos"
+// }
+// POST Get cities of a specified country
+// https://countriesnow.space/api/v0.1/countries/cities
+// {
+//   "country": "nigeria"
+// }

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { dashBoardResolver } from 'projects/weather/src/app/pages/dashboard/resolvers/dashboard-resolver';
+import { dashBoardResolver } from '@lib-services';
 
 export const routes: Routes = [
   {

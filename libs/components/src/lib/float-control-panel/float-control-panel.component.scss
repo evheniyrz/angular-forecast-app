@@ -1,0 +1,16 @@
+:host {
+  --host-width: 50px;
+  min-width: var(--host-width);
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  border: 2px solid var(--mat-divider-color);
+  border-radius: 30px;
+  padding: 5px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background-color: rgba($color: var(--rgb-proj-twilight-blue), $alpha: 1);
+}

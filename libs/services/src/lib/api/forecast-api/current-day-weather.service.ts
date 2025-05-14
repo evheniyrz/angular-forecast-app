@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { ForecastApiService } from 'libs/services/src/lib/api/forecast-api/forecast-api.service';
-import { OPEN_WEATHER_API_HOST } from '@lib-services';
+import { OPEN_WEATHER_API_HOST, ResolvedGeoData } from '@lib-services';
 import { HttpClient } from '@angular/common/http';
 import { CombineTemplateData, TodayWeatherResponse } from './types';
 import { map, Observable } from 'rxjs';
 
-@Injectable()
-export class OpenWeatherService extends ForecastApiService<TodayWeatherResponse> {
+@Injectable({
+  providedIn: 'root',
+})
+export class CurrentDayWeatherService extends ForecastApiService<TodayWeatherResponse> {
   constructor(
     @Inject(OPEN_WEATHER_API_HOST) dataHost: string,
     httpClientEnt: HttpClient
@@ -14,17 +16,8 @@ export class OpenWeatherService extends ForecastApiService<TodayWeatherResponse>
     super(dataHost, '/weather', httpClientEnt);
   }
 
-  getCurrentForecast(
-    cityName = 'Mykolayiv',
-    countryCode = 'ua'
-  ): Observable<CombineTemplateData> {
-    return this.weatherGet().pipe(
-      map((apiResp: TodayWeatherResponse) => {
-        var templateData: CombineTemplateData =
-          this.generateTemplateData(apiResp);
-        return templateData;
-      })
-    );
+  getCurrentForecast(geo: ResolvedGeoData): Observable<TodayWeatherResponse> {
+    return this.weatherGet(geo.city, geo.country_code);
   }
 
   private generateTemplateData(

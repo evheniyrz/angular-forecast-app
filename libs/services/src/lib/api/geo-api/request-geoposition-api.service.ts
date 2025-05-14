@@ -15,7 +15,7 @@ export class RequestGeopositionApiService<T> extends RootApiService {
 
   protected getGeoPosition(): Observable<T> {
     const params = this.generateGetRequestParams({
-      fields: 'country,city,city_geoname_id,region',
+      fields: 'country,city,city_geoname_id,region,country_code',
     });
     const requestOption: HttpRequest<unknown> = new HttpRequest('GET', '', {
       params,
