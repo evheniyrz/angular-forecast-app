@@ -97,7 +97,8 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "buildTarget": "weather:build:production"
+            "buildTarget": "weather:build:production",
+            "baseHref": "/angular-forecast-app/"
           }
         }
       }

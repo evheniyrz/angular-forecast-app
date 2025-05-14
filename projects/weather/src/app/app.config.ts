@@ -48,11 +48,11 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: GEO_LOCATION_HOST,
-      useValue: 'https://ipgeolocation.abstractapi.com/v1',
+      useValue: 'https://iplocate.io/api/lookup',
     },
     {
       provide: GEO_LOCATION_API_TOKEN,
-      useValue: '990d95afbdd24cc2a35fd650671b6be9',
+      useValue: 'b441794f8e447b5ea124387614a42910',
     },
     {
       provide: REST_COUNTRIES_API_HOST,
