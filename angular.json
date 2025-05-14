@@ -34,7 +34,9 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/weather/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "https://cdn.jsdelivr.net/npm/coi-serviceworker@latest/dist/coi-serviceworker.js"
+            ]
           },
           "configurations": {
             "production": {
