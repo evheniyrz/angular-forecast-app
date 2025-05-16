@@ -12,7 +12,7 @@ export class RestCountriesService extends CountriesApiService<
     @Inject(REST_COUNTRIES_API_HOST) apiHost: string,
     httpClient: HttpClient
   ) {
-    super(apiHost, '', httpClient);
+    super(apiHost, '/countries', httpClient);
   }
 
   getCountryByName(countryName: string): Observable<CountriesApiResponse[]> {

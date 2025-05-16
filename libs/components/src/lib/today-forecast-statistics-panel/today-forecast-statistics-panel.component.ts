@@ -25,7 +25,6 @@ export class TodayForecastStatisticsPanelComponent {
     WeatherStateCollection[]
   >([], {
     transform: (inputData: WeatherStateCollection[]) => {
-      console.log('Statistics input transform');
       return this.transformDataToChartData(inputData);
     },
   });

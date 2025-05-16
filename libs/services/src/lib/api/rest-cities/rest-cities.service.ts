@@ -10,7 +10,7 @@ export class RestCitiesService extends CitiesApiSertvice<CitiesApiResponse> {
     @Inject(REST_CITIES_API_HOST) apiHost: string,
     httpClient: HttpClient
   ) {
-    super(apiHost, '', httpClient);
+    super(apiHost, '/cities', httpClient);
   }
 
   citiesByCountry(countryName: string): Observable<CitiesApiResponse> {

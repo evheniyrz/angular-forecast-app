@@ -6,7 +6,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { filter, Observable, tap } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 
 @Injectable()
 export class RootApiService {
@@ -22,12 +22,9 @@ export class RootApiService {
     reqConfig = reqConfig.clone({
       url: this.generateResourceURL(reqConfig.url),
     });
-    return this.httpClient.request<T>(reqConfig).pipe(
-      filter((event) => event.type === HttpEventType.Response),
-      tap((resp: HttpResponse<T>) => {
-        console.log('ROOT API=>', { resp });
-      })
-    );
+    return this.httpClient
+      .request<T>(reqConfig)
+      .pipe(filter((event) => event.type === HttpEventType.Response));
   }
 
   protected generateGetRequestParams(paramsSet: {

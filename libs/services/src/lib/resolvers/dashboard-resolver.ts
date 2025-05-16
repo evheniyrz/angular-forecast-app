@@ -11,7 +11,5 @@ export const dashBoardResolver: ResolveFn<ResolvedGeoData> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  return inject(ResolverService)
-    .resolveGeoData()
-    .pipe(tap((response) => console.log('==resolver==', response)));
+  return inject(ResolverService).resolveGeoData();
 };

@@ -17,8 +17,12 @@ export function httpErrorInterceptor(
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       console.log('%c INTERCEPTOR ON ERROR', 'color:red', error);
-      _snackBar.open(`${error.status}\n ${error.message}`, 'X', {
-        duration: 3000,
+      const errorMessage: string =
+        error.status === 404
+          ? 'SOURCE FOR REQUESTED PARAMS NOT FOUND'
+          : error.message;
+      _snackBar.open(`${error.status}\n ${errorMessage}`, 'X', {
+        duration: 5000,
         verticalPosition: 'top',
         horizontalPosition: 'right',
       });

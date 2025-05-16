@@ -109,10 +109,7 @@ export class GeoPositionFormComponent {
         filteredCities.length * this.itemSize < 200
           ? `${filteredCities.length * this.itemSize}px`
           : '200px';
-      console.log('%c LOG CITY LENGTH', 'color: green;background:white;', {
-        h: this.height,
-        l: filteredCities.length,
-      });
+
       return filteredCities;
     },
   });

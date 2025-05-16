@@ -1,11 +1,6 @@
-import { Component, inject, OnInit, TemplateRef } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { startWith, tap } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'lib-daily-switcher-form',
@@ -25,8 +20,7 @@ export class DailySwitcherFormComponent implements OnInit {
       .pipe(
         startWith({
           daySwitcher: '4',
-        }),
-        tap((val) => console.log({ val }))
+        })
       )
       .subscribe();
   }

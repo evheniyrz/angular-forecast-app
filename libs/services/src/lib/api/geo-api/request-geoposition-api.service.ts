@@ -18,7 +18,7 @@ export class RequestGeopositionApiService<T> extends RootApiService {
       fields: 'country,city,city_geoname_id,region,country_code',
     });
     const requestOption: HttpRequest<unknown> = new HttpRequest('GET', '', {
-      params,
+      // params,
       withCredentials: true,
       responseType: 'json',
       observe: 'body',

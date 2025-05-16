@@ -12,7 +12,7 @@ export class GeoByIpService extends RequestGeopositionApiService<ResolvedGeoData
     @Inject(GEO_LOCATION_HOST) dataHost: string,
     httpClientEnt: HttpClient
   ) {
-    super(dataHost, '/', httpClientEnt);
+    super(dataHost, '/geo', httpClientEnt);
   }
 
   getLocation(): Observable<ResolvedGeoData> {

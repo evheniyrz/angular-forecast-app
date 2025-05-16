@@ -2,7 +2,6 @@
  * Public API Surface of services
  */
 
-export * from './lib/http-interceptors/with-credetntials.interceptor';
 export * from './lib/http-interceptors/http-error.interceptor';
 
 export * from './lib/resolvers/dashboard-resolver';
