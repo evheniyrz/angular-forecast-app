@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  grid-area: 1 / 1 / 3 / 3;
+  align-items: center;
+  justify-content: center;
+
+  .gears-loader-wrapper {
+    width: 250px;
+    aspect-ratio: 1;
+
+    img {
+      width: 100%;
+    }
+  }
+}

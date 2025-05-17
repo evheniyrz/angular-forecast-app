@@ -74,6 +74,7 @@ export type CountriesCode =
   | 'MY'
   | 'MX'
   | 'MA'
+  | 'MD'
   | 'NP'
   | 'NL'
   | 'NZ'
@@ -191,6 +192,7 @@ export enum CountryEnum {
   MY = 'Malaysia',
   MX = 'Mexico',
   MA = 'Morocco',
+  MD = 'Moldova',
   NP = 'Nepal',
   NL = 'Netherlands',
   NZ = 'New zealand',

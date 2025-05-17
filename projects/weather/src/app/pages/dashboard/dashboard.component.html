@@ -1,6 +1,14 @@
-@if($templateDataStream | async; as state){
-<lib-today-forecast-panel [todayForecast]="state.todayForecast"></lib-today-forecast-panel>
-<lib-daily-forecast-panel [currentForecastCollection]="state.dailyForecast"></lib-daily-forecast-panel>
-<lib-today-forecast-statistics-panel [statisticsData]="state.statisticsState"></lib-today-forecast-statistics-panel>
+@let stateData = $templateDataStream | async;
+@let trigger = stateData?.initialized;
+
+@defer(when trigger == true){
+<lib-today-forecast-panel [todayForecast]="stateData!.todayForecast"></lib-today-forecast-panel>
+<lib-daily-forecast-panel [currentForecastCollection]="stateData!.dailyForecast"></lib-daily-forecast-panel>
+<lib-today-forecast-statistics-panel
+  [statisticsData]="stateData!.statisticsState"></lib-today-forecast-statistics-panel>
 <lib-float-control-panel></lib-float-control-panel>
+}
+@placeholder(minimum 10s) {
+
+<app-dashboard-placeholder></app-dashboard-placeholder>
 }

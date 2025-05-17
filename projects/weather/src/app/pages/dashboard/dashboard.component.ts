@@ -21,6 +21,7 @@ import {
 import { filter, Observable, tap } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
+import { DashboardPlaceholderComponent } from './dashboard-placeholder/dashboard-placeholder.component';
 
 @Component({
   selector: 'lib-dashboard',
@@ -30,6 +31,7 @@ import { AsyncPipe } from '@angular/common';
     DailyForecastPanelComponent,
     AsyncPipe,
     FloatControlPanelComponent,
+    DashboardPlaceholderComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -42,8 +44,8 @@ export class DashboardComponent implements OnInit {
   // °C = (°F − 32) x 5/9
   // °F = (°C × 9/5) + 32
 
-  public $templateDataStream: Observable<WeatherAppState> =
-    this.store.state$.pipe(filter((data: WeatherAppState) => data.initialized));
+  public $templateDataStream: Observable<WeatherAppState> = this.store.state$;
+  // .pipe(filter((data: WeatherAppState) => data.initialized));
 
   ngOnInit(): void {
     (this.activatedRoute.data as Observable<Data>)
