@@ -15,14 +15,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Add .nojekyll
-        run: touch dist/weather/browser/.nojekyll
-
       - name: Install Dependencies
         run: npm install
 
       - name: Build Project
         run: npm run build
+
+      - name: Add .nojekyll
+        run: touch dist/weather/browser/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
