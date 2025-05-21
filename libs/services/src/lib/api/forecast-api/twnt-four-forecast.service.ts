@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import {
   OPEN_WEATHER_API_HOST,
   ResolvedGeoData,
-  WeatherCollectionResponse,
+  FiveDaysCollectionResponse,
 } from '@lib-services';
 import { ForecastApiService } from 'libs/services/src/lib/api/forecast-api/forecast-api.service';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TwntFourForecastService extends ForecastApiService<WeatherCollectionResponse> {
+export class TwntFourForecastService extends ForecastApiService<FiveDaysCollectionResponse> {
   constructor(
     @Inject(OPEN_WEATHER_API_HOST) twtFourForecastHost: string,
     httpClientEnt: HttpClient
@@ -19,9 +19,9 @@ export class TwntFourForecastService extends ForecastApiService<WeatherCollectio
     super(twtFourForecastHost, '/forecast', httpClientEnt);
   }
 
-  getTwentyFourForecastData(
+  fifeDaysForecastData(
     geo: ResolvedGeoData
-  ): Observable<WeatherCollectionResponse> {
+  ): Observable<FiveDaysCollectionResponse> {
     return this.weatherGet(geo.city, geo.country_code);
   }
 }

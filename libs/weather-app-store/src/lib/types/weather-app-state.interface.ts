@@ -8,7 +8,7 @@ import { IDailyForecastDTO } from '@lib-weather-app-store';
 export interface WeatherAppState {
   geo: ResolvedGeoData;
   weatherList: WeatherStateCollection[];
-  fiveDaysForecast: any;
+  // fiveDaysForecast: any;
   statisticsState: WeatherStateCollection[];
   dailyForecast: IDailyForecastDTO;
   todayForecast: TodayForecastTemplateData;

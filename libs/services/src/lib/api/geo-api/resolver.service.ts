@@ -1,8 +1,25 @@
 import { Injectable } from '@angular/core';
-import { GeoByIpService, ResolvedGeoData, STORAGEKEYS } from '@lib-services';
+import {
+  CurrentDayWeatherService,
+  GeoByIpService,
+  ResolvedGeoData,
+  STORAGEKEYS,
+  TwntFourForecastService,
+} from '@lib-services';
+import { WeatherAppStoreService } from '@lib-weather-app-store';
 
 import { LocalStorageService } from 'libs/services/src/lib/api/local-storage/local-storage.service';
-import { concatMap, defer, iif, Observable, of, tap } from 'rxjs';
+import {
+  combineLatest,
+  concatMap,
+  defer,
+  exhaustMap,
+  iif,
+  map,
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +27,10 @@ import { concatMap, defer, iif, Observable, of, tap } from 'rxjs';
 export class ResolverService {
   constructor(
     private localStotageService: LocalStorageService<ResolvedGeoData>,
-    private geoByIpService: GeoByIpService
+    private geoByIpService: GeoByIpService,
+    private weatherStoreService: WeatherAppStoreService,
+    private readonly weatherService: TwntFourForecastService,
+    private readonly currentDayForecast: CurrentDayWeatherService
   ) {}
 
   resolveGeoData(): Observable<ResolvedGeoData> {
@@ -19,11 +39,34 @@ export class ResolverService {
         return iif(
           () => null != resolvedData,
           defer(() => of(resolvedData as ResolvedGeoData)),
-          defer(() => this.geoByIpService.getLocation())
+          defer(() =>
+            this.geoByIpService
+              .getLocation()
+              .pipe(
+                tap((resolveData) =>
+                  this.localStotageService.setItem(
+                    STORAGEKEYS.USER_GEO,
+                    resolveData
+                  )
+                )
+              )
+          )
         );
       }),
-      tap((value: ResolvedGeoData) => {
-        this.localStotageService.setItem(STORAGEKEYS.USER_GEO, value);
+      exhaustMap((value: ResolvedGeoData) => {
+        return combineLatest([
+          this.currentDayForecast.getCurrentForecast(value),
+          this.weatherService.fifeDaysForecastData(value),
+        ]).pipe(
+          map(([todayWeather, fiveDaysForecast]) => {
+            this.weatherStoreService.appStateInitializer([
+              value,
+              fiveDaysForecast,
+              todayWeather,
+            ]);
+            return value;
+          })
+        );
       })
     );
   }

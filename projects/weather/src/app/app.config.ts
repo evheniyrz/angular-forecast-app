@@ -1,6 +1,8 @@
 import {
   ApplicationConfig,
+  inject,
   isDevMode,
+  provideAppInitializer,
   provideEnvironmentInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -14,6 +16,7 @@ import {
   GeoPositionFormDataService,
   httpErrorInterceptor,
   OPEN_WEATHER_API_HOST,
+  ResolverService,
   REST_CITIES_API_HOST,
   REST_COUNTRIES_API_HOST,
   SubmitFomService,
@@ -21,6 +24,10 @@ import {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAppInitializer(() => {
+      const resolverService = inject(ResolverService);
+      return resolverService.resolveGeoData();
+    }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),

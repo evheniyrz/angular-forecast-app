@@ -1,11 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  isDevMode,
-  OnInit,
-} from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
 import {
   DailyForecastPanelComponent,
   FloatControlPanelComponent,
@@ -18,10 +12,9 @@ import {
   WeatherAppStoreService,
 } from '@lib-weather-app-store';
 
-import { filter, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
-import { DashboardPlaceholderComponent } from './dashboard-placeholder/dashboard-placeholder.component';
 
 @Component({
   selector: 'lib-dashboard',
@@ -31,29 +24,17 @@ import { DashboardPlaceholderComponent } from './dashboard-placeholder/dashboard
     DailyForecastPanelComponent,
     AsyncPipe,
     FloatControlPanelComponent,
-    DashboardPlaceholderComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   private store: WeatherAppStoreService = inject(WeatherAppStoreService);
-  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+
   // °C = (°F − 32) x 5/9
   // °F = (°C × 9/5) + 32
 
   public $templateDataStream: Observable<WeatherAppState> = this.store.state$;
-  // .pipe(filter((data: WeatherAppState) => data.initialized));
-
-  ngOnInit(): void {
-    (this.activatedRoute.data as Observable<Data>)
-      .pipe(
-        tap((data: Data) => {
-          this.store.setAppWeatherState(data['geo']);
-        })
-      )
-      .subscribe();
-  }
 }

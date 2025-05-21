@@ -26,6 +26,36 @@ body {
   --mat-divider-color: var(--hex-proj-soft-denim);
 }
 
+.splash-screen-container {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  background-color: rgba(var(--rgb-proj-dark-color), 0.5);
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+
+  .gears-loader-wrapper {
+    width: 250px;
+    aspect-ratio: 1;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 10px;
+  }
+}
+
 // Customize the entire app. icon- Change :root to your selector if you want to scope the styles.
 // lib-float-control-panel {
 //   @include mat.icon-button-overrides(

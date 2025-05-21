@@ -13,7 +13,7 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
       ),
-    resolve: { geo: dashBoardResolver },
+    // resolve: { geo: dashBoardResolver },
   },
   {
     path: '**',

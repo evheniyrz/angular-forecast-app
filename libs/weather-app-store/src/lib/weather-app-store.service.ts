@@ -5,7 +5,7 @@ import {
   TodayForecastTemplateData,
   TodayWeatherResponse,
   TwntFourForecastService,
-  WeatherCollectionResponse,
+  FiveDaysCollectionResponse,
   WeatherStateCollection,
 } from '@lib-services';
 import {
@@ -25,7 +25,6 @@ export const INITIAL_STATE: WeatherAppState = {
     fiveDaysForecast: [],
   },
   statisticsState: [],
-  fiveDaysForecast: [],
   initialized: false,
 };
 
@@ -35,7 +34,7 @@ export const INITIAL_STATE: WeatherAppState = {
 export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
   constructor(
     private readonly weatherService: TwntFourForecastService,
-    private currentDayForecast: CurrentDayWeatherService
+    private readonly currentDayForecast: CurrentDayWeatherService
   ) {
     super(INITIAL_STATE);
   }
@@ -45,29 +44,20 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
       return geoParam$.pipe(
         switchMap((geoParam: ResolvedGeoData) => {
           return combineLatest([
-            this.weatherService.getTwentyFourForecastData(geoParam),
+            this.weatherService.fifeDaysForecastData(geoParam),
             this.currentDayForecast.getCurrentForecast(geoParam),
           ]).pipe(
             tap({
-              next: ([response, todayForecast]: [
-                WeatherCollectionResponse,
+              next: ([twntFourResponse, todayForecast]: [
+                FiveDaysCollectionResponse,
                 TodayWeatherResponse
               ]) => {
-                if (Number(response.cod) < 400) {
-                  this.appStateInitializer({
-                    ...this.state(),
-                    geo: geoParam,
-                    weatherList: response.list,
-                    todayForecast: this.todayForecastData(todayForecast),
-                    dailyForecast: {
-                      nowForecast: this.nowForecastTemplateData(todayForecast),
-                      fiveDaysForecast: this.selectRepresentative(
-                        this.groupByDate(response)
-                      ),
-                    },
-                    statisticsState: response.list.slice(0, 9),
-                    initialized: true,
-                  });
+                if (Number(twntFourResponse.cod) < 400) {
+                  this.appStateInitializer([
+                    geoParam,
+                    twntFourResponse,
+                    todayForecast,
+                  ]);
                 }
               },
             })
@@ -78,9 +68,26 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
   );
 
   readonly appStateInitializer = this.updater(
-    (state: WeatherAppState, fullState: WeatherAppState) => ({
+    (
+      state: WeatherAppState,
+      fullState: [
+        ResolvedGeoData,
+        FiveDaysCollectionResponse,
+        TodayWeatherResponse
+      ]
+    ) => ({
       ...state,
-      ...fullState,
+      geo: fullState[0],
+      weatherList: fullState[1].list,
+      todayForecast: this.todayForecastData(fullState[2]),
+      dailyForecast: {
+        nowForecast: this.nowForecastTemplateData(fullState[2]),
+        fiveDaysForecast: this.selectRepresentative(
+          this.groupByDate(fullState[1])
+        ),
+      },
+      statisticsState: fullState[1].list.slice(0, 9),
+      initialized: true,
     })
   );
 
@@ -97,9 +104,9 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
     })
   );
   readonly updateTodayWeatherState = this.updater(
-    (state: WeatherAppState, todayForecast: TodayForecastTemplateData) => ({
+    (state: WeatherAppState, todayForecast: TodayWeatherResponse) => ({
       ...state,
-      todayForecast,
+      todayForecast: this.todayForecastData(todayForecast),
     })
   );
   // readonly updateNowForecastState = this.updater(
@@ -157,7 +164,7 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
   // const weatherData = [/* Ваши 40 элементов из API */];
 
   // Функция группировки по датам
-  private groupByDate(data: WeatherCollectionResponse) {
+  private groupByDate(data: FiveDaysCollectionResponse) {
     return data.list.reduce((acc, item) => {
       const date = item.dt_txt.split(' ')[0]; // Извлекаем дату
       if (!acc[date]) acc[date] = [];

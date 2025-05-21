@@ -1,4 +1,4 @@
-export interface WeatherCollectionResponse {
+export interface FiveDaysCollectionResponse {
   cod: string;
   message: number;
   cnt: number;

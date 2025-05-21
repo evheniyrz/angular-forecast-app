@@ -18,8 +18,9 @@ import {
   TransformComponent,
 } from 'echarts/components';
 
-import { EChartsOption } from 'echarts/types/dist/shared';
+import { EChartsOption, XAXisOption } from 'echarts/types/dist/shared';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { ChartResizeDirective } from 'libs/components/src/lib/today-forecast-statistics-panel/weather-chart/chart-resize/chart-resize.directive';
 
 echarts.use([
   LineChart,
@@ -33,7 +34,7 @@ echarts.use([
 
 @Component({
   selector: 'lib-weather-chart',
-  imports: [NgxEchartsDirective],
+  imports: [NgxEchartsDirective, ChartResizeDirective],
   providers: [provideEchartsCore({ echarts }), DatePipe, TitleCasePipe],
   templateUrl: './weather-chart.component.html',
   styleUrl: './weather-chart.component.scss',
@@ -145,4 +146,12 @@ export class WeatherChartComponent {
   chartStyle = {
     width: '100%', // Чарт растягивается на 100% ширины родителя
   };
+
+  onResize(event: { width: number; height: number }) {
+    // console.log('EWSIZE', event);
+    // this.chartOptionsSignal.update((options: EChartsOption) => {
+    //   ((options.xAxis as XAXisOption).axisLabel as AxisLabelOption<"category">).rich['temperature'].fontSize
+    //   return options;
+    // })
+  }
 }
