@@ -15,6 +15,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Add .nojekyll
+        run: touch dist/weather/browser/.nojekyll
+
       - name: Install Dependencies
         run: npm install
 
@@ -26,3 +29,5 @@ jobs:
         with:
           branch: gh-pages # ветка для деплоя
           folder: dist/weather/browser # Путь к собранным файлам
+          clean: true # Полностью удаляет старые файлы перед деплоем
+
