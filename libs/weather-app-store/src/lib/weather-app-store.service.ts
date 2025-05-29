@@ -86,7 +86,7 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
           this.groupByDate(fullState[1])
         ),
       },
-      statisticsState: fullState[1].list.slice(0, 9),
+      statisticsState: fullState[1].list.slice(0, 12),
       initialized: true,
     })
   );
@@ -136,6 +136,7 @@ export class WeatherAppStoreService extends ComponentStore<WeatherAppState> {
         description: apiResponse.weather[0].description,
         main: apiResponse.weather[0].main,
         icon: this.generateLargeIconUrl(apiResponse.weather[0].icon),
+        weather_id: apiResponse.weather[0].id,
       },
       temp_min: apiResponse.main.temp_min,
       sys: {

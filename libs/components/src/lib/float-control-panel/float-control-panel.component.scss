@@ -1,6 +1,6 @@
 :host {
-  --host-width: 50px;
-  min-width: var(--host-width);
+  --host-width: 55px;
+  width: var(--host-width);
   height: auto;
   display: flex;
   flex-flow: column;
@@ -8,7 +8,7 @@
   border: 2px solid var(--mat-divider-color);
   border-radius: 30px;
   padding: 5px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   left: 0;

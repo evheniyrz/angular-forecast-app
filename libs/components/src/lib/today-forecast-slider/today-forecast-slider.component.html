@@ -1,0 +1,6 @@
+<swiper-container init="false">
+  @for (url of sliderURLsSet(); track $index) {
+  <swiper-slide [ngStyle]="{'background-image': 'url(' + url + ')'}">
+  </swiper-slide>
+  }
+</swiper-container>

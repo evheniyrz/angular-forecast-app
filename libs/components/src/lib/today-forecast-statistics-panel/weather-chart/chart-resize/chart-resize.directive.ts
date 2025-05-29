@@ -2,10 +2,8 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  EventEmitter,
   NgZone,
   OnDestroy,
-  Output,
 } from '@angular/core';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -13,12 +11,21 @@ import { NgxEchartsDirective } from 'ngx-echarts';
   selector: '[libChartResize]',
 })
 export class ChartResizeDirective implements AfterViewInit, OnDestroy {
-  @Output() resize = new EventEmitter<{ width: number; height: number }>();
   private resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
+    const { width } = entries[0].contentRect;
     this.ngZone.run(() => {
+      const isSmall = width < 620;
+      const newDataZoom = [{ end: isSmall ? 30 : 50 }];
+
+      if (
+        JSON.stringify(this.echartsDir.options!['datZoom']) !==
+        JSON.stringify(newDataZoom)
+      ) {
+        this.echartsDir.merge = { dataZoom: newDataZoom };
+        this.echartsDir.refreshChart();
+      }
+
       this.echartsDir.resize();
-      const { width, height } = entries[0].contentRect;
-      this.resize.emit({ width, height });
     });
   });
 
@@ -33,6 +40,8 @@ export class ChartResizeDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.resizeObserver.disconnect();
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 }

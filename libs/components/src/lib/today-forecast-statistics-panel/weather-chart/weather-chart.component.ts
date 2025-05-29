@@ -16,9 +16,10 @@ import {
   LegendComponent,
   DatasetComponent,
   TransformComponent,
+  DataZoomComponent,
 } from 'echarts/components';
 
-import { EChartsOption, XAXisOption } from 'echarts/types/dist/shared';
+import { EChartsOption } from 'echarts/types/dist/shared';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { ChartResizeDirective } from 'libs/components/src/lib/today-forecast-statistics-panel/weather-chart/chart-resize/chart-resize.directive';
 
@@ -30,6 +31,7 @@ echarts.use([
   CanvasRenderer,
   TooltipComponent,
   LegendComponent,
+  DataZoomComponent,
 ]);
 
 @Component({
@@ -55,7 +57,7 @@ export class WeatherChartComponent {
         ...this.chartOptions.xAxis,
         data: newSource.map(
           (item) =>
-            `{temperature|${item['temperature']}°C}\n{w|${item['time']}}\n{W|${item['weatherState']}}`
+            `{temperature|${item['temperature']}°C}\n{time|${item['time']}}\n{date|${item['date']}}\n{state|${item['weatherState']}}`
         ),
       },
       series: {
@@ -79,9 +81,31 @@ export class WeatherChartComponent {
 
   private chartOptions: EChartsOption = {
     grid: {
+      top: 10,
       left: 45,
       right: 45,
+      bottom: 90,
     },
+    dataZoom: [
+      {
+        type: 'slider',
+        xAxisIndex: 0,
+        height: 10,
+        bottom: 10,
+        start: 0,
+        end: 50,
+        filterMode: 'empty',
+        handleLabel: {
+          show: false,
+        },
+        showDetail: false,
+      },
+      {
+        type: 'inside',
+        xAxisIndex: 0,
+      },
+    ],
+
     tooltip: {
       trigger: 'none',
       // axisPointer: { type: 'cross' },
@@ -89,28 +113,38 @@ export class WeatherChartComponent {
     legend: {},
     xAxis: {
       type: 'category',
+      position: 'bottom',
       axisTick: {
         alignWithLabel: true,
       },
       axisLabel: {
         interval: 0,
         align: 'center',
-        lineHeight: 20,
+
         rich: {
           temperature: {
             fontSize: 20,
             fontWeight: 'bold',
             color: 'white',
+            lineHeight: 20,
           },
-          w: {
+          time: {
             fontSize: 12,
             fontWeight: 400,
             color: 'rgba(255,255,255, 0.5)',
+            lineHeight: 12,
           },
-          W: {
+          date: {
             fontSize: 10,
             fontWeight: 400,
             color: 'rgba(255,255,255, 0.5)',
+            lineHeight: 10,
+          },
+          state: {
+            fontSize: 10,
+            fontWeight: 400,
+            color: 'rgba(255,255,255, 0.5)',
+            lineHeight: 12,
           },
         },
       },
@@ -146,12 +180,4 @@ export class WeatherChartComponent {
   chartStyle = {
     width: '100%', // Чарт растягивается на 100% ширины родителя
   };
-
-  onResize(event: { width: number; height: number }) {
-    // console.log('EWSIZE', event);
-    // this.chartOptionsSignal.update((options: EChartsOption) => {
-    //   ((options.xAxis as XAXisOption).axisLabel as AxisLabelOption<"category">).rich['temperature'].fontSize
-    //   return options;
-    // })
-  }
 }

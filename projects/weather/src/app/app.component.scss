@@ -2,8 +2,14 @@
   height: 100%;
   width: 100%;
   display: flex;
+  flex-flow: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-image: url(../../public/background5.jpg);
-  padding: 0 25px;
+  background-attachment: fixed;
+  overflow-y: auto;
+
+  @media screen and (min-width: 1024px) {
+    justify-content: center;
+  }
 }

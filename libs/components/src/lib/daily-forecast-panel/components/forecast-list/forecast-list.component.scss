@@ -1,7 +1,7 @@
 :host {
   padding: 30px 0 20px;
   flex: 1;
-
+  overflow-y: auto;
   cdk-virtual-scroll-viewport {
     height: 100%;
     scrollbar-width: none;

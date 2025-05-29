@@ -1,22 +1,25 @@
-<div class="today-forecast-wrapper"
-  [ngStyle]="{'background-image':'url(https://static.vecteezy.com/system/resources/previews/050/503/178/large_2x/sunlight-shining-through-leaves-in-the-forest-photo.jpeg)'}">
-  <div class="geo-position-info">
-    <span class="material-icons geo-icon">
-      place
-    </span>
-    <span class="geo-position-place">{{todayForecast().sys.name}}, {{todayForecast().sys.country |
-      codeToCountryName}}</span>
-  </div>
-  <div class="forecast-overview">
-    <h2 class="forecast-overview-title">weather forecast</h2>
-    <div class="forecast-overview-details">
-      <div class="forecast-overview-state">{{todayForecast().weather.description}}</div>
-      <div class="forecast-overview-state-icon"
-        [ngStyle]="{'background-image':'url('+todayForecast().weather.icon +')'}">
+<div class="today-forecast-wrapper">
+  <lib-today-forecast-slider [weatherID]="todayForecast().weather.weather_id"></lib-today-forecast-slider>
+
+  <div class="info-panel">
+    <div class="geo-position-info">
+      <span class="material-icons geo-icon">
+        place
+      </span>
+      <span class="geo-position-place">{{todayForecast().sys.name}}, {{todayForecast().sys.country |
+        codeToCountryName}}</span>
+    </div>
+    <div class="forecast-overview">
+      <h2 class="forecast-overview-title">weather forecast</h2>
+      <div class="forecast-overview-details">
+        <div class="forecast-overview-state">{{todayForecast().weather.description}}</div>
+        <div class="forecast-overview-state-icon"
+          [ngStyle]="{'background-image':'url('+todayForecast().weather.icon +')'}">
+        </div>
+        <div class="forecast-overview-temperature">The low temperature will reach {{todayForecast()!.temp_min |
+          mathRound}} on this
+          {{todayForecast().weather.main | adjective}} day</div>
       </div>
-      <div class="forecast-overview-temperature">The low temperature will reach {{todayForecast()!.temp_min |
-        mathRound}} on this
-        {{todayForecast().weather.main | adjective}} day</div>
     </div>
   </div>
 </div>

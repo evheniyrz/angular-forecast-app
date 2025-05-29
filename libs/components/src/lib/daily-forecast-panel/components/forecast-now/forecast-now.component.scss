@@ -1,7 +1,7 @@
 :host {
   display: block;
   padding-top: 20px;
-  padding-bottom: 40px;
+  padding-bottom: clamp(1.5625rem, 1.2664rem + 1.3158vw, 2.5rem);
 
   .now-time,
   .now-temperature,
@@ -13,7 +13,7 @@
 
   .now-time {
     justify-content: space-between;
-    padding-bottom: 50px;
+    padding-bottom: clamp(1.5625rem, 1.0691rem + 2.193vw, 3.125rem);
   }
 
   .now-temperature,
@@ -22,7 +22,7 @@
   }
 
   .now-temperature {
-    font-size: 110px;
+    font-size: clamp(4.375rem, 3.5855rem + 3.5088vw, 6.875rem);
     line-height: 1;
     padding-bottom: 20px;
 

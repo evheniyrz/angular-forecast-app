@@ -36,7 +36,8 @@ export class TodayForecastStatisticsPanelComponent {
     chartData = data.reduce<Array<Record<string, string | number>>>(
       (collection, next) => {
         collection.push({
-          time: this.date.transform(next.dt_txt, 'shortTime') as string,
+          time: this.date.transform(next.dt_txt, 'HH:mm') as string,
+          date: this.date.transform(next.dt_txt, 'mediumDate') as string,
           temperature: Math.round(next.main.temp),
           weatherState: this.titleCasePipe.transform(
             next.weather[0].description
