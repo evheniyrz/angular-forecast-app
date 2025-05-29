@@ -13,7 +13,6 @@ export class SwiperDirective {
   private resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
     this.ngZone.run(() => {
       this.slider.nativeElement.swiper.update();
-      console.log('SWIPER RESIZE', { el: this.slider });
     });
   });
 
