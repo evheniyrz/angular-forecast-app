@@ -1,1 +1,1 @@
-export type { CountriesApiResponse } from './countries-api-response.interface';
+export type { ICountriesApiResponse } from './countries-api-response.interface';

@@ -3,6 +3,7 @@ import { IGeoFormValue } from '@lib-components';
 import { ResolvedGeoData, STORAGEKEYS, SubmitFomService } from '@lib-services';
 import { WeatherAppStoreService } from '@lib-weather-app-store';
 import { LocalStorageService } from 'libs/services/src/lib/api/local-storage/local-storage.service';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,7 @@ export class GeoPositionFormDataService
     private storeService: WeatherAppStoreService,
     private storageService: LocalStorageService<ResolvedGeoData>
   ) {}
-  submitFormData(params: IGeoFormValue): void {
-    console.log('FORM SERVICE', { params });
+  submitFormData(params: IGeoFormValue): Subscription {
     const geodata: ResolvedGeoData = {
       city: params.city,
       country: params.country.name.common,
@@ -23,9 +23,11 @@ export class GeoPositionFormDataService
       region: '',
       city_geoname_id: 0,
     };
-    this.storeService.setAppWeatherState(geodata);
+
     if (params.useAsDefaultGeo) {
       this.storageService.setItem(STORAGEKEYS.USER_GEO, geodata);
     }
+
+    return this.storeService.setAppWeatherState(geodata);
   }
 }

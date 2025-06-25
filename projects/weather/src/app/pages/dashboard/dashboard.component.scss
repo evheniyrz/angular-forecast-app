@@ -9,12 +9,14 @@
   padding: 15px;
   overflow: visible;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 600px) {
     max-width: 85vw;
+  }
+
+  @media screen and (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr minmax(365px, 30%);
     grid-template-rows: 1fr 30%;
-    aspect-ratio: 16/9;
 
     lib-today-forecast-panel {
       grid-column: 1 /2;

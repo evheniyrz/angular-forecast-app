@@ -1,21 +1,46 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { CountriesApiResponse, REST_COUNTRIES_API_HOST } from '@lib-services';
-import { CountriesApiService } from './countries-api.service';
-import { Observable } from 'rxjs';
+import { CountryEnum } from '@lib-pipes';
+import { RootApiService } from 'libs/services/src/lib/api/root-api.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable()
-export class RestCountriesService extends CountriesApiService<
-  CountriesApiResponse[]
-> {
+export class RestCountriesService<T> extends RootApiService {
   constructor(
-    @Inject(REST_COUNTRIES_API_HOST) apiHost: string,
+    @Inject(String) apiHost: string,
+    @Inject(String) endpoint: string,
     httpClient: HttpClient
   ) {
-    super(apiHost, '/countries', httpClient);
+    super(apiHost, endpoint, httpClient);
   }
 
-  getCountryByName(countryName: string): Observable<CountriesApiResponse[]> {
-    return this.countryGet(countryName);
+  protected countryGet(countryName: string): Observable<T> {
+    const params = this.generateGetRequestParams({
+      fields: 'name,flags,cca2',
+    });
+    const requestOption: HttpRequest<unknown> = new HttpRequest(
+      'GET',
+      `/${countryName}`,
+      {
+        params,
+        withCredentials: false,
+        responseType: 'json',
+        reportProgress: false,
+      }
+    );
+    return this.apiRequest<T>(requestOption).pipe(
+      map((response: HttpResponse<T>) =>
+        this.getSupportedCountries(response.body as T)
+      ),
+      catchError(() => {
+        return of([] as T);
+      })
+    );
+  }
+
+  private getSupportedCountries(responsData: T): T {
+    return (responsData as Array<any>).filter((item) =>
+      Object.keys(CountryEnum).includes(item['cca2'])
+    ) as T;
   }
 }

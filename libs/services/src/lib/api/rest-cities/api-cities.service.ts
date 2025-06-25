@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { CitiesApiResponse, REST_CITIES_API_HOST } from '@lib-services';
-import { CitiesApiSertvice } from './cities-api.service';
+import { RestCitiesService } from './rest-cities-api.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class RestCitiesService extends CitiesApiSertvice<CitiesApiResponse> {
+export class CitiesApiService extends RestCitiesService<CitiesApiResponse> {
   constructor(
     @Inject(REST_CITIES_API_HOST) apiHost: string,
     httpClient: HttpClient

@@ -7,11 +7,18 @@
   <mat-form-field class="example-full-width">
     <mat-label>Country</mat-label>
     <input type="text" placeholder="Country name (more then 3 symbols)" aria-label="country name" matInput
-      formControlName="country" [matAutocomplete]="countryAuto">
-    <mat-autocomplete #countryAuto="matAutocomplete" [displayWith]="displayFn"
+      formControlName="country" [matAutocomplete]="countryAuto" [errorStateMatcher]="matcher">
+    @if (geopositionForm.controls.country.hasError('pattern')) {
+    <mat-error>Only letters</mat-error>
+    } @if (geopositionForm.controls.country.hasError('notfound')) {
+    <mat-error>Resource not found</mat-error>
+    } @if (geopositionForm.controls.country.hasError('minlength')) {
+    <mat-error>Min 3 symbols required</mat-error>
+    }
+    <mat-autocomplete #countryAuto="matAutocomplete" [displayWith]="displayFnWithBind"
       (optionSelected)="onCountrySelected($event)">
-      @for (countryOption of countryList(); track countryOption.cca2) {
-      <mat-option [value]="countryOption">
+      @for (countryOption of countryList.value(); track countryOption.cca2) {
+      <mat-option [value]="countryOption.name.common">
         <div class="country-params-container">
           <img width="30" [src]="countryOption.flags.svg"
             [alt]="countryOption.flags.alt">{{countryOption.name.official}}
@@ -25,11 +32,10 @@
     <input type="text" placeholder="City name" aria-label="city name" matInput formControlName="city"
       [matAutocomplete]="cityAuto">
     <mat-autocomplete #cityAuto="matAutocomplete">
-      <cdk-virtual-scroll-viewport itemSize="50" [ngStyle]="{height}">
-        <!-- @for (cityName of cityList(); track cityName) { -->
+      <cdk-virtual-scroll-viewport itemSize="50" [ngStyle]="{height: cdkScrollHeight()}" minBufferPx="150"
+        maxBufferPx="250">
         <mat-option *cdkVirtualFor="let cityName of cityList(); trackBy: cityNameTrack"
           [value]="cityName">{{cityName}}</mat-option>
-        <!-- } -->
       </cdk-virtual-scroll-viewport>
     </mat-autocomplete>
   </mat-form-field>

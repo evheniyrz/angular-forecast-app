@@ -1,1 +1,1 @@
-export type { CitiesApiResponse } from './cities-api-response.interface';
+export type { ICitiesApiResponse } from './cities-api-response.interface';

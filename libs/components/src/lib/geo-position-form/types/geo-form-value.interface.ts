@@ -1,7 +1,7 @@
-import { CountriesApiResponse } from '@lib-services';
+import { ICountriesApiResponse } from '@lib-services';
 
 export interface IGeoFormValue {
-  country: CountriesApiResponse;
+  country: ICountriesApiResponse;
   city: string;
   useAsDefaultGeo: boolean;
 }

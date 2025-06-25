@@ -1,4 +1,4 @@
-export interface CountriesApiResponse {
+export interface ICountriesApiResponse {
   flags: {
     png: string;
     svg: string;
