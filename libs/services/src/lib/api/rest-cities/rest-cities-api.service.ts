@@ -14,6 +14,7 @@ export class RestCitiesService<T> extends RootApiService {
   }
 
   protected citiesPOST(country: string): Observable<T> {
+    country = country.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const requestOption: HttpRequest<unknown> = new HttpRequest(
       'POST',
       '',
