@@ -64,8 +64,8 @@ export class GeoPositionFormComponent {
 
   cityList: WritableSignal<string[]> = this.formComponentService.cityList;
 
-  countryList: ResourceRef<ICountriesApiResponse[] | undefined> =
-    this.formComponentService.countrtyList;
+  countryList: ResourceRef<ICountriesApiResponse[]> =
+    this.formComponentService.countryList;
 
   itemSize = 50;
 

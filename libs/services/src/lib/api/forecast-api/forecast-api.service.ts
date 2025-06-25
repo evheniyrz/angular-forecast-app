@@ -48,7 +48,6 @@ export class ForecastApiService<T> extends RootApiService {
       reportProgress: false,
     });
     return this.apiRequest<T>(requestOption).pipe(
-      map((response: HttpResponse<T>) => response.body as T),
       catchError((error: HttpErrorResponse) => {
         return of({
           code: error ?? ['cod'],

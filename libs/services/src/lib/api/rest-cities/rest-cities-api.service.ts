@@ -24,13 +24,6 @@ export class RestCitiesService<T> extends RootApiService {
         reportProgress: false,
       }
     );
-    return this.apiRequest<T>(requestOption).pipe(
-      map((response: HttpResponse<T>) => response.body as T),
-      catchError(() => {
-        return of({
-          data: [(requestOption.body as Record<string, string>)['country']],
-        } as T);
-      })
-    );
+    return this.apiRequest<T>(requestOption);
   }
 }

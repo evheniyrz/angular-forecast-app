@@ -3,28 +3,27 @@ import {
   HttpEventType,
   HttpParams,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { filter, Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 
 @Injectable()
-export class RootApiService {
+export abstract class RootApiService {
   constructor(
     @Inject(String) private apiHost: string,
     @Inject(String) private endpoint: string,
     private httpClient: HttpClient
   ) {}
 
-  protected apiRequest<T>(
-    reqConfig: HttpRequest<any>
-  ): Observable<HttpResponse<T>> {
+  protected apiRequest<T>(reqConfig: HttpRequest<any>): Observable<T> {
     reqConfig = reqConfig.clone({
       url: this.generateResourceURL(reqConfig.url),
     });
-    return this.httpClient
-      .request<T>(reqConfig)
-      .pipe(filter((event) => event.type === HttpEventType.Response));
+
+    return this.httpClient.request<T>(reqConfig).pipe(
+      filter((event) => event.type === HttpEventType.Response),
+      map((response) => response.body as T)
+    );
   }
 
   protected generateGetRequestParams(paramsSet: {

@@ -28,14 +28,7 @@ export class RestCountriesService<T> extends RootApiService {
         reportProgress: false,
       }
     );
-    return this.apiRequest<T>(requestOption).pipe(
-      map((response: HttpResponse<T>) =>
-        this.getSupportedCountries(response.body as T)
-      ),
-      catchError(() => {
-        return of([] as T);
-      })
-    );
+    return this.apiRequest<T>(requestOption);
   }
 
   private getSupportedCountries(responsData: T): T {

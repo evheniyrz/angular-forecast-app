@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { CitiesApiResponse, REST_CITIES_API_HOST } from '@lib-services';
+import { ICitiesApiResponse, REST_CITIES_API_HOST } from '@lib-services';
 import { RestCitiesService } from './rest-cities-api.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class CitiesApiService extends RestCitiesService<CitiesApiResponse> {
+export class CitiesApiService extends RestCitiesService<ICitiesApiResponse> {
   constructor(
     @Inject(REST_CITIES_API_HOST) apiHost: string,
     httpClient: HttpClient
@@ -13,7 +13,7 @@ export class CitiesApiService extends RestCitiesService<CitiesApiResponse> {
     super(apiHost, '/cities', httpClient);
   }
 
-  citiesByCountry(countryName: string): Observable<CitiesApiResponse> {
+  fetchCitiesByCountry(countryName: string): Observable<ICitiesApiResponse> {
     return this.citiesPOST(countryName);
   }
 }

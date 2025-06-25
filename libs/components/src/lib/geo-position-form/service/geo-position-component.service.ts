@@ -23,6 +23,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  map,
 } from 'rxjs/operators';
 
 @Injectable()
@@ -66,28 +67,28 @@ export class GeoPositionComponentService {
     }
   );
 
-  private _sourceCityList: ResourceRef<ICitiesApiResponse | undefined> =
-    rxResource({
-      request: () => ({ country: this.selectedCountryName() }),
-      loader: ({ request }) =>
-        !!request.country.length
-          ? this.citiesService.citiesByCountry(request.country)
-          : of({ error: false, msg: '', data: [] }),
-    });
+  private _cityListResource: ResourceRef<string[]> = rxResource({
+    request: () => ({ countryName: this.selectedCountryName() }),
+    loader: ({ request }) => {
+      return !!request.countryName.normalize().length
+        ? this.citiesService
+            .fetchCitiesByCountry(request.countryName)
+            .pipe(map((response) => response.data))
+        : EMPTY;
+    },
+    defaultValue: [],
+  });
 
-  cityList: WritableSignal<string[]> = linkedSignal<string, string[]>({
+  cityList: WritableSignal<string[]> = linkedSignal({
     source: this._cityValueSource,
-    computation: (partialCityName = '', _) => {
-      const sourceValue = this._sourceCityList.value();
-      let filteredCities: string[] = [];
-      if (!!sourceValue && !!sourceValue.data.length) {
-        filteredCities = (sourceValue as ICitiesApiResponse).data.filter(
-          (cityName) =>
-            cityName.toLowerCase().includes(partialCityName.toLowerCase())
+    computation: (cityName) => {
+      const filteredCityList: string[] = this._cityListResource
+        .value()
+        .filter((fullCityName: string) =>
+          fullCityName.toLowerCase().includes(cityName.toLowerCase())
         );
-      }
 
-      return filteredCities;
+      return filteredCityList;
     },
   });
 
