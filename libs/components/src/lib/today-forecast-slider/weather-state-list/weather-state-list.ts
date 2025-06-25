@@ -72,7 +72,7 @@ export const WETHER_STATE_MAP = {
   fog: [
     'https://grammaticus.blog/wp-content/uploads/2022/11/foggy-morning-street.jpg?w=1600&h=1040&crop=1',
     'https://images.squarespace-cdn.com/content/v1/513cbb57e4b0fe58c6595bb9/1410051766341-D1YPT2L12VHXGR8U2U21/image-asset.jpeg?format=1500w',
-    'https://us.images.westend61.de/0000881371pw/scenic-view-of-field-during-foggy-weather-CAVF24249.jpg',
+    'https://as2.ftcdn.net/v2/jpg/01/18/94/85/1000_F_118948519_Xdo09oE3OSRiOar9941ca09FLEeFIqjf.jpg',
   ],
   ash: [
     'https://www.weathercompany.com/wp-content/uploads/2024/11/GettyImages-534969350-scaled.jpg',
